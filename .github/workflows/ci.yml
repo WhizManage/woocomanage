@@ -29,7 +29,7 @@ jobs:
           # Create a temporary directory to copy files without altering them
           mkdir WooCoManage
           # Copy necessary files and folders to the temporary directory
-          cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/
+          cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooComanage/
          
 
       - name: Upload zip artifact
