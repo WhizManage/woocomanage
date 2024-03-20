@@ -27,14 +27,14 @@ jobs:
           # Navigate back to the main directory
           cd ${{ github.workspace }}
           # Create a temporary directory to copy files without altering them
-          mkdir temp_zip
+          mkdir WooCoManage
           # Copy necessary files and folders to the temporary directory
-          cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php woocomanage/
-      
+          cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/
+         
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v2
         with:
           name: WooCoManage
-          path: ${{ github.workspace }}/woocomanage
+          path: ${{ github.workspace }}/WooCoManage
          
