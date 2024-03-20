@@ -16,7 +16,7 @@ jobs:
       - name: Build plugin
         run: |
           # Navigate to the WoocoManage directory
-          cd WoocoManage
+          cd WooCoManage
           # Run necessary build steps like installing dependencies, building the project, etc.
           composer install --no-dev
           npm install
