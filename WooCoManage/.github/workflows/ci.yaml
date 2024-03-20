@@ -16,9 +16,10 @@ jobs:
       - name: Build plugin
         run: |
           # Run necessary build steps like installing dependencies, building the project, etc.
+          cd WooCoManage
           composer install --no-dev
           npm install
-          npm start
+          npm run build
 
       - name: Generate zip
         run: |
@@ -26,7 +27,8 @@ jobs:
           cd ${{ github.workspace }}
 
           # Create a zip file containing the built files from the 'dist' directory
-          zip -r woocomanage.zip WooCoManage
+          cd WooCoManage
+          zip -r ${{ github.workspace }}/woocomanage.zip .
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v2
