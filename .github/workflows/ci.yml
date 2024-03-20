@@ -26,8 +26,14 @@ jobs:
         run: |
           # Navigate back to the main directory
           cd ${{ github.workspace }}
-          # Create a zip file containing the built files from the 'dist' directory
-          zip -r woocomanage.zip WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php
+          # Create a temporary directory to copy files without altering them
+          mkdir temp_zip
+          # Copy necessary files and folders to the temporary directory
+          cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php temp_zip/
+          # Create a zip file containing the copied files and folders
+          zip -r woocomanage.zip temp_zip
+          # Clean up temporary directory
+          rm -rf temp_zip
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v2
