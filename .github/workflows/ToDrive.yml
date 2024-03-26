@@ -1,0 +1,41 @@
+name: Upload Artifact to Google Drive
+
+on:
+  workflow_dispatch:  # Manually trigger the workflow
+
+jobs:
+  upload_to_drive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build plugin
+        run: |
+          # Navigate to the WoocoManage directory
+          cd WooCoManage
+          # Run necessary build steps like installing dependencies, building the project, etc.
+          composer install --no-dev
+          npm install
+          npm run build
+
+      - name: Making ready to Generate zip
+        run: |
+          # Navigate back to the main directory
+          cd ${{ github.workspace }}
+          # Create a temporary directory to copy files without altering them
+          mkdir WooCo
+          # Copy necessary files and folders to the temporary directory
+          cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/build WooCo/
+          # Create a zip file in the same directory
+          zip -r WoocoManage.zip WooCo
+        
+      
+      # Step to upload the artifact to Google Drive
+      - name: Upload artifact to Google Drive
+        uses: gdrive-org/gdrive-action@master
+        with:
+          command: upload
+          args: ${{ github.workspace }}/WoocoManage.zip
+        env:
+          SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
