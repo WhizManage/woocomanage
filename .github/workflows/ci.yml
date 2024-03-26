@@ -38,11 +38,12 @@ jobs:
           cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/build wooco/WooComanage/
 
           
-     
-      - name: Tag the release
+     - name: Tag the release
         run: |
           git tag -a "v1.0.0" -m "Version 1.0.0"
           git push --tags
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Create GitHub Release
         id: create_release
@@ -50,6 +51,8 @@ jobs:
         with:
           files: |
             ${{ github.workspace }}/wooco/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
          
 
