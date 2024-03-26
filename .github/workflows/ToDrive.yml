@@ -35,5 +35,5 @@ jobs:
         with:
           filename: WoocoManage.zip
           name: WoocoManage.zip  # Optional: Rename the file on Google Drive
-          folderId: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}  # Specify the folder ID in Google Drive
+          folderId: ${{ secrets.FOLDERID }}  # Specify the folder ID in Google Drive
           credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}  # Google service account key
