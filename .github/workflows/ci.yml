@@ -22,7 +22,7 @@ jobs:
           npm install
           npm run build
 
-      - name: Generate zip
+      - name: Making redy to Generate zip
         run: |
           # Navigate back to the main directory
           cd ${{ github.workspace }}
@@ -30,6 +30,16 @@ jobs:
           mkdir -p wooco/WooComanage
           # Copy necessary files and folders to the temporary directory
           cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/build wooco/WooComanage/
+
+          
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ github.workspace }}/wooco/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          
 
       - name: Upload zip artifact
