@@ -35,13 +35,14 @@ jobs:
           mkdir -p wooco/WooComanage
           # Copy necessary files and folders to the temporary directory
           cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/build wooco/WooComanage/
+      - name: Get latest tag
+        id: get_tag
+        run: echo ::set-output name=tag::$(git describe --abbrev=0 --tags || echo "v0.0.0")
 
-      - name: Tag the release
+      - name: Create and push tag
         run: |
-          git tag -a "v1.1.0" -m "Version 1.1.0"
-          git push --tags
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          git tag -a "${{ steps.get_tag.outputs.tag }}" -m "Version ${{ steps.get_tag.outputs.tag }}"
+          git push origin "${{ steps.get_tag.outputs.tag }}"
 
       - name: Create GitHub Release
         id: create_release
@@ -50,7 +51,7 @@ jobs:
           files: |
             ${{ github.workspace }}/wooco/*
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v2
