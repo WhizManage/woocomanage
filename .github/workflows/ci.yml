@@ -18,7 +18,6 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
-
       - name: Build plugin
         run: |
           # Navigate to the WoocoManage directory
@@ -28,7 +27,7 @@ jobs:
           npm install
           npm run build
 
-      - name: Making redy to Generate zip
+      - name: Making ready to Generate zip
         run: |
           # Navigate back to the main directory
           cd ${{ github.workspace }}
@@ -37,8 +36,7 @@ jobs:
           # Copy necessary files and folders to the temporary directory
           cp -r WooCoManage/index.php WooCoManage/templates WooCoManage/uninstall.php WooCoManage/includes WooCoManage/assets WooCoManage/woocomanage.php WooCoManage/build wooco/WooComanage/
 
-          
-     - name: Tag the release
+      - name: Tag the release
         run: |
           git tag -a "v1.0.0" -m "Version 1.0.0"
           git push --tags
@@ -52,13 +50,10 @@ jobs:
           files: |
             ${{ github.workspace }}/wooco/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      
-         
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v2
         with:
           name: WooCoManage
           path: ${{ github.workspace }}/wooco
-         
