@@ -30,21 +30,10 @@ jobs:
           # Create a zip file in the same directory
           zip -r WoocoManage.zip WooCo
         
-      
-      # Step to upload the artifact to Google Drive
-      #- name: Upload artifact to Google Drive
-      #  uses: gdrive-org/gdrive-action@master
-       # with:
-        #  filename: wooco.zip
-        #  command: upload
-        #  args: ${{ github.workspace }}/WoocoManage.zip
-    #    env:
-        #  SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-
-        - name: Upload to gdrive
+      - name: Upload to Google Drive
         uses: mathisve/gdrive-upload-action@main
         with:
           filename: WoocoManage.zip
-          name: documentation.zip
-          folderId: ${{ secrets.folderId }}
-          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+          name: WoocoManage.zip  # Optional: Rename the file on Google Drive
+          folderId: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}  # Specify the folder ID in Google Drive
+          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}  # Google service account key
