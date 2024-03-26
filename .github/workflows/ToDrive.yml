@@ -32,11 +32,19 @@ jobs:
         
       
       # Step to upload the artifact to Google Drive
-      - name: Upload artifact to Google Drive
-        uses: gdrive-org/gdrive-action@master
+      #- name: Upload artifact to Google Drive
+      #  uses: gdrive-org/gdrive-action@master
+       # with:
+        #  filename: wooco.zip
+        #  command: upload
+        #  args: ${{ github.workspace }}/WoocoManage.zip
+    #    env:
+        #  SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+
+        - name: Upload to gdrive
+        uses: mathisve/gdrive-upload-action@main
         with:
-          filename: wooco.zip
-          command: upload
-          args: ${{ github.workspace }}/WoocoManage.zip
-        env:
-          SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+          filename: WoocoManage.zip
+          name: documentation.zip
+          folderId: ${{ secrets.folderId }}
+          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
