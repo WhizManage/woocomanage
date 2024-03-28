@@ -38,4 +38,4 @@ jobs:
           sudo apt-get install -y megatools
 
       - name: Upload file to MEGA
-        run: megaput  -u fonavo1244@nimadir.com -p Wooco123456789  ${{ github.workspace }}/WoocoManage.zip cXVzCZrB/
+        run: megaput  -u fonavo1244@nimadir.com -p Wooco123456789  ${{ github.workspace }}/ cXVzCZrB/
