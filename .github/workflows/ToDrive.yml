@@ -31,11 +31,9 @@ jobs:
           zip -r WoocoManage.zip WooCo
 
 
-      - name: Install megatools
-        run: |
-           wget -O /tmp/megacmd.deb https://mega.nz/linux/repo/xUbuntu_23.10/amd64/megacmd-xUbuntu_23.10_amd64.deb
-           sudo dpkg -i /tmp/megacmd.deb
-           sudo apt-get install -f
-
-      - name: Upload file to MEGA
-        run: megaput  -u fonavo1244@nimadir.com -p Wooco123456789  ${{ github.workspace }}/ cXVzCZrB/
+      - name: Upload to Google Drive
+        uses: Jodebu/upload-to-drive@master
+        with:
+          target: ${{ github.workspace }}/WoocoManage.zip
+          credentials: secrets.GOOGLE_SERVICE_ACCOUNT_KEY
+          folder: secrets.FOLDERID
