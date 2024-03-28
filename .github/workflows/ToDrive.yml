@@ -31,9 +31,8 @@ jobs:
           zip -r WoocoManage.zip WooCo
         
       - name: Upload to Google Drive
-        uses: mathisve/gdrive-upload-action@main
+        uses: logickoder/g-drive-upload@main
         with:
-          filename: WoocoManage.zip
-          name: WoocoManage.zip  # Optional: Rename the file on Google Drive
-          folderId: ${{ secrets.FOLDERID }}  # Specify the folder ID in Google Drive
-          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}  # Google service account key
+          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+          filename: 'WoocoManage.zip'
+          folderId: ${{ secrets.folderId }}
