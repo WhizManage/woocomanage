@@ -30,21 +30,12 @@ jobs:
           # Create a zip file in the same directory
           zip -r WoocoManage.zip WooCo
 
-      - name: Set up Google Service Account Key
-        run: echo "$SERVICE_ACCOUNT_KEY" > ${{ github.workspace }}/service_account_key.json
-        env:
-          SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-    
         
-      - name: Authenticate and Upload to Google Drive
-        run: |
-          JWT=$(echo -n "{\"iss\":\"wooco-561@spherical-frame-409820.iam.gserviceaccount.com\",\"scope\":\"https://www.googleapis.com/auth/drive\",\"aud\":\"https://oauth2.googleapis.com/token\",\"exp\":$(( $(date +%s) + 3600 ))}" | openssl enc -base64 -A)
-          SIGNED_JWT=$(echo -n $JWT | openssl dgst -sha256 -sign ${{ github.workspace }}/service_account_key.json -binary | openssl enc -base64 -A)
-          ACCESS_TOKEN=$(curl -s -X POST -d "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=$SIGNED_JWT" https://oauth2.googleapis.com/token | jq -r '.access_token')
-          curl -X POST \
-            -H "Authorization: Bearer $ACCESS_TOKEN" \
-            -F "metadata={name:'WoocoManage.zip', parents:['FOLDERID']};type=application/json;charset=UTF-8" \
-            -F "file=@WoocoManage.zip;type=application/zip" \
-            "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart"
-        env:
-          SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+      - name: Install mega-cmd
+        run: sudo apt-get update && sudo apt-get install -y mega-cmd
+
+      - name: Login to MEGA
+        run: mega-login fonavo1244@nimadir.com Wooco123456789
+
+      - name: Upload file to MEGA
+        run: mega-put ${{ github.workspace }}/WoocoManage.zip
