@@ -32,7 +32,7 @@ jobs:
 
         
       - name: Install mega-cmd
-        run: apt-get update && apt-get install -y mega-cmd
+        run: sudo apt-get update && sudo apt-get install -y mega-cmd
 
       # You may need to manually authenticate with `mega-login` first, 
       # and then omit this step in subsequent workflow runs
