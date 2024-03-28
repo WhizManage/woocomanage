@@ -36,4 +36,4 @@ jobs:
         with:
           target: ${{ github.workspace }}/WoocoManage.zip
           credentials: secrets.GOOGLE_SERVICE_ACCOUNT_KEY
-          folder: 1uLwQoI1E4h2isuHm8epKyE526xRtWaeR
+          folder: secrets.FOLDERID
