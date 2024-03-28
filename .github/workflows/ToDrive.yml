@@ -30,14 +30,11 @@ jobs:
           # Create a zip file in the same directory
           zip -r WoocoManage.zip WooCo
 
-        
-      - name: Install mega-cmd
-        run: sudo apt-get update && sudo apt-get install -y mega-cmd
 
-      # You may need to manually authenticate with `mega-login` first, 
-      # and then omit this step in subsequent workflow runs
-      - name: Login to MEGA
-        run: mega-login fonavo1244@nimadir.com Wooco123456789
+      - name: Install megatools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y megatools
 
       - name: Upload file to MEGA
-        run: mega-put ${{ github.workspace }}/WoocoManage.zip /cXVzCZrB/
+        run: megaput ${{ github.workspace }}/WoocoManage.zip cXVzCZrB/
