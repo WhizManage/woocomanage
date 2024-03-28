@@ -33,7 +33,7 @@ jobs:
       - name: Upload to Google Drive
         run: |
           curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GOOGLE_ACCESS_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" \
             -F "metadata={name:'WoocoManage.zip', parents:['${{ secrets.FOLDERID }}']};type=application/json;charset=UTF-8" \
             -F "file=@WoocoManage.zip;type=application/zip" \
             "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart"
