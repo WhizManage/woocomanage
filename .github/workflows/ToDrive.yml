@@ -31,8 +31,9 @@ jobs:
           zip -r WoocoManage.zip WooCo
         
       - name: Upload to Google Drive
-        uses: logickoder/g-drive-upload@main
-        with:
-          credentials: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-          filename: 'WoocoManage.zip'
-          folderId: ${{ secrets.folderId }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GOOGLE_ACCESS_TOKEN }}" \
+            -F "metadata={name:'WoocoManage.zip', parents:['${{ secrets.FOLDERID }}']};type=application/json;charset=UTF-8" \
+            -F "file=@WoocoManage.zip;type=application/zip" \
+            "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart"
